@@ -1,0 +1,387 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    min-height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, 
+        #FFB6C1 0%,
+        #FFD1DC 25%,
+        #FFC0CB 50%,
+        #FFB3D9 75%,
+        #FF69B4 100%);
+    position: relative;
+}
+
+/* Floating hearts background */
+.hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.6;
+    animation: floatUp 8s linear infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Main container */
+.container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.question {
+    font-family: 'Pacifico', cursive;
+    font-size: 3.5rem;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 60px;
+    text-shadow: 
+        0 0 20px rgba(255, 182, 193, 0.8),
+        0 0 40px rgba(255, 182, 193, 0.6),
+        0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 
+            0 0 20px rgba(255, 182, 193, 0.8),
+            0 0 40px rgba(255, 182, 193, 0.6),
+            0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    to {
+        text-shadow: 
+            0 0 30px rgba(255, 182, 193, 1),
+            0 0 60px rgba(255, 182, 193, 0.8),
+            0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Buttons container */
+.buttons-container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Button base styles */
+.btn {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+/* YES button */
+.btn-yes {
+    font-size: 2rem;
+    padding: 25px 60px;
+    background: linear-gradient(135deg, #FF1493, #FF69B4);
+    color: white;
+    box-shadow: 
+        0 0 30px rgba(255, 20, 147, 0.6),
+        0 8px 20px rgba(0, 0, 0, 0.3);
+    animation: pulseYes 1.5s ease-in-out infinite;
+}
+
+.btn-yes:hover {
+    transform: scale(1.1);
+    box-shadow: 
+        0 0 50px rgba(255, 20, 147, 0.9),
+        0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.btn-yes:active {
+    transform: scale(1.05);
+}
+
+@keyframes pulseYes {
+    0%, 100% {
+        box-shadow: 
+            0 0 30px rgba(255, 20, 147, 0.6),
+            0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 0 50px rgba(255, 20, 147, 0.9),
+            0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* NO button */
+.btn-no {
+    font-size: 1.2rem;
+    padding: 15px 35px;
+    background: linear-gradient(135deg, #FFB6C1, #FFC0CB);
+    color: #8B4789;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    transition: all 0.2s ease;
+}
+
+.btn-no:hover {
+    transform: scale(1.05);
+}
+
+.btn-no.hidden {
+    display: none;
+}
+
+/* Sad overlay */
+.sad-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: fadeIn 0.5s ease;
+}
+
+.sad-overlay.active {
+    display: flex;
+}
+
+.sad-message {
+    text-align: center;
+    padding: 40px;
+    background: rgba(255, 182, 193, 0.95);
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.5s ease;
+}
+
+.sad-text {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.sad-text-2 {
+    font-size: 1.8rem;
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Celebration overlay */
+.celebration-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        #FF1493 0%,
+        #FF69B4 25%,
+        #FFB6C1 50%,
+        #FF69B4 75%,
+        #FF1493 100%);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    animation: fadeIn 0.5s ease;
+}
+
+.celebration-overlay.active {
+    display: flex;
+}
+
+.celebration-content {
+    text-align: center;
+    position: relative;
+    z-index: 201;
+}
+
+.celebration-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 5rem;
+    color: #fff;
+    margin-bottom: 30px;
+    text-shadow: 
+        0 0 30px rgba(255, 255, 255, 0.8),
+        0 0 60px rgba(255, 255, 255, 0.6),
+        0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: bounce 1s ease infinite;
+}
+
+.celebration-subtitle {
+    font-size: 2.5rem;
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Sparkles */
+.sparkles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 200;
+}
+
+.sparkle {
+    position: absolute;
+    font-size: 30px;
+    animation: sparkleFloat 3s ease-in-out infinite;
+}
+
+@keyframes sparkleFloat {
+    0% {
+        transform: translateY(100vh) rotate(0deg) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(90vh) rotate(45deg) scale(1);
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh) rotate(360deg) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .question {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+    
+    .btn-yes {
+        font-size: 1.5rem;
+        padding: 20px 45px;
+    }
+    
+    .btn-no {
+        font-size: 1rem;
+        padding: 12px 28px;
+    }
+    
+    .celebration-title {
+        font-size: 3.5rem;
+    }
+    
+    .celebration-subtitle {
+        font-size: 1.8rem;
+    }
+    
+    .sad-text {
+        font-size: 2rem;
+    }
+    
+    .sad-text-2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .question {
+        font-size: 2rem;
+    }
+    
+    .btn-yes {
+        font-size: 1.2rem;
+        padding: 18px 40px;
+    }
+    
+    .btn-no {
+        font-size: 0.9rem;
+        padding: 10px 25px;
+    }
+    
+    .celebration-title {
+        font-size: 2.5rem;
+    }
+    
+    .celebration-subtitle {
+        font-size: 1.5rem;
+    }
+}
